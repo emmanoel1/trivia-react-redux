@@ -1,7 +1,7 @@
 import React from 'react';
-// import get from './service/get';
-// import PropTypes from 'prop-types';
-import getToken from './service/getToken';
+import PropTypes from 'prop-types';
+// import get from '../service/get';
+import getToken from '../service/getToken';
 
 class StartBtn extends React.Component {
   constructor() {
@@ -15,12 +15,13 @@ class StartBtn extends React.Component {
   }
 
   async handlePlayBtn() {
+    const { history } = this.props;
     const token = await getToken();
     console.log(token);
     // const game = await get(token.token);
     // console.log(game);
     localStorage.setItem('token', JSON.stringify(token));
-    // history.push('/game');
+    history.push('/game');
   }
 
   render() {
@@ -37,10 +38,10 @@ class StartBtn extends React.Component {
   }
 }
 
-// StartBtn.propTypes = {
-//   history: PropTypes.shape({
-//     push: PropTypes.func.isRequired,
-//   }).isRequired,
-// };
+StartBtn.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default StartBtn;

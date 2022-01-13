@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ButtonConfig from '../components/ButtonConfig';
 import logo from '../trivia.png';
+import StartBtn from '../components/StartBtn';
 
 class HomeTemp extends Component {
   render() {
@@ -13,6 +14,7 @@ class HomeTemp extends Component {
           <p>SUA VEZ</p>
         </header>
         <ButtonConfig history={ history } />
+        <StartBtn history={ history } />
       </div>
     );
   }
