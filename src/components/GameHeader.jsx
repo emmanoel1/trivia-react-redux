@@ -17,7 +17,7 @@ class GameHeader extends Component {
 
   async mountGravatar() {
     // const { email } = this.props;
-    const email = 'emmanoelporto@gmail.com';
+    const email = 'any@gmail.com';
     const hashEmail = md5(email).toString();
     const result = await getGravatar(hashEmail);
     this.setState({
