@@ -32,7 +32,7 @@ class GameHeader extends Component {
         <img
           data-testid="header-profile-picture"
           src={ imgUrl }
-          alt="Header Profile"
+          alt="Player Profile"
         />
         <p data-testid="header-player-name">
           {}
