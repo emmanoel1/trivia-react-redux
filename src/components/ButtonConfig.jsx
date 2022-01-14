@@ -12,7 +12,7 @@ class ButtonConfig extends Component {
       <button
         type="button"
         data-testid="btn-settings"
-        className="bg-sky-900 w-96"
+        className="bg-gray-300"
         onClick={ this.handleClick }
       >
         <i className="fas fa-cogs" />

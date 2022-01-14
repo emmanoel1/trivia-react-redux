@@ -40,7 +40,7 @@ class Game extends Component {
       return <p>carregando</p>;
     }
     return (
-      <div>
+      <div className="flex items-center flex-col">
         <Question question={ questions[0] } errorToken={ errorToken } />
         <button type="button">Next</button>
       </div>

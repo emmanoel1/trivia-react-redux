@@ -71,17 +71,19 @@ class Question extends Component {
     // console.log(this.state);
     // if (this.state) return null;
     return (
-      <div>
+      <div className="flex flex-col w-1/4">
         <div data-testid="question-category">{category}</div>
         <div data-testid="question-text">{question}</div>
-        {shuffleAnswers.map((answer, index) => (
-          <Answer
-            key={ index }
-            dataTest="correct-answer"
-            isCorrect={ answer === correctAnswer }
-            answer={ answer }
-          />
-        ))}
+        <div className="flex flex-col ">
+          {shuffleAnswers.map((answer, index) => (
+            <Answer
+              key={ index }
+              dataTest="correct-answer"
+              isCorrect={ answer === correctAnswer }
+              answer={ answer }
+            />
+          ))}
+        </div>
       </div>
     );
   }

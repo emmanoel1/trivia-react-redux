@@ -5,11 +5,12 @@ class Answer extends Component {
   render() {
     const { answer } = this.props;
     return (
-      <div>
-        <button type="button" className="bg-2">
-          {answer}
-        </button>
-      </div>
+      <button
+        type="button"
+        className="bg-zinc-300 border border-zinc-400 p-6 w-full mb-5 hover:bg-sky-700"
+      >
+        {answer}
+      </button>
     );
   }
 }

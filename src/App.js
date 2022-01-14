@@ -4,7 +4,7 @@ import Routes from './pages/Routes';
 
 export default function App() {
   return (
-    <div className="App bg-slate-300">
+    <div className="App">
       <Routes />
     </div>
   );
