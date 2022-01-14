@@ -2,23 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import getToken from '../service/getToken';
+// import getToken from '../service/getToken';
 
 class StartBtn extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-
-    };
+    this.state = {};
 
     this.handlePlayBtn = this.handlePlayBtn.bind(this);
   }
 
-  async handlePlayBtn() {
-    const token = await getToken();
-
-    localStorage.setItem('token', JSON.stringify(token));
+  handlePlayBtn() {
   }
 
   render() {
