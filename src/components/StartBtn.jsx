@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // import get from '../service/get';
 import getToken from '../service/getToken';
+import { setItemLocalStore } from '../helpers';
 
 class StartBtn extends React.Component {
   constructor() {
@@ -15,7 +16,7 @@ class StartBtn extends React.Component {
   async handlePlayBtn() {
     const { history } = this.props;
     const token = await getToken();
-    localStorage.setItem('token', JSON.stringify(token));
+    setItemLocalStore('token', token);
     history.push('/game');
   }
 
