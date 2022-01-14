@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import get from '../service/get';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import getToken from '../service/getToken';
 
 class StartBtn extends React.Component {
@@ -15,33 +16,44 @@ class StartBtn extends React.Component {
   }
 
   async handlePlayBtn() {
-    const { history } = this.props;
     const token = await getToken();
-    console.log(token);
-    // const game = await get(token.token);
-    // console.log(game);
+
     localStorage.setItem('token', JSON.stringify(token));
-    history.push('/game');
   }
 
   render() {
+    const { isDisabled } = this.props;
     return (
-
-      <button
-        data-testid="btn-play"
-        type="button"
-        onClick={ () => this.handlePlayBtn() }
+      <Link
+        to="/game"
       >
-        Play
-      </button>
+        <button
+          className={
+            isDisabled
+              ? `shadow bg-purple-300 cursor-not-allowed hover:bg-purple-400
+              focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4
+              rounded`
+              : `shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline
+              focus:outline-none text-white font-bold py-2 px-4 rounded`
+          }
+          onClick={ () => this.handlePlayBtn() }
+          type="button"
+          data-testid="btn-play"
+          disabled={ isDisabled }
+        >
+          PLAY
+        </button>
+      </Link>
     );
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  setDispatch: () => dispatch(action()),
+});
+
 StartBtn.propTypes = {
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
-  }).isRequired,
+  isDisabled: PropTypes.bool.isRequired,
 };
 
-export default StartBtn;
+export default connect(null, mapDispatchToProps)(StartBtn);

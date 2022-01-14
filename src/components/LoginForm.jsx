@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import StartBtn from './StartBtn';
 
 class LoginForm extends Component {
   constructor(props) {
@@ -67,21 +68,7 @@ class LoginForm extends Component {
               onChange={ this.handleChange }
             />
           </label>
-          <button
-            className={
-              isDisabled
-                ? `shadow bg-purple-300 cursor-not-allowed hover:bg-purple-400
-            focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4
-            rounded`
-                : `shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline
-              focus:outline-none text-white font-bold py-2 px-4 rounded`
-            }
-            type="button"
-            data-testid="btn-play"
-            disabled={ isDisabled }
-          >
-            PLAY
-          </button>
+          <StartBtn isDisabled={ isDisabled } />
         </div>
       </div>
     );
