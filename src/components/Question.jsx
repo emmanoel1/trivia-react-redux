@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Answer from './Answer';
 import { getItemLocalStore } from '../helpers';
 import getQuestions from '../service/get';
+import { getQuestionsAct } from '../redux/actions';
 
 class Question extends Component {
   constructor() {
@@ -12,7 +13,8 @@ class Question extends Component {
   }
 
   componentDidMount() {
-    cob;
+    const { getQuestionsProp } = this.props;
+    console.log(getQuestionsProp);
     const DOIS_SEG = 2000;
     this.getQuest();
     setTimeout(() => {

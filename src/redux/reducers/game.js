@@ -6,14 +6,14 @@ const initialState = {
   errorToken: 0,
 };
 
-const gameReducer = (state = initialState, { type, payload }) => {
+const gameReducer = (state = initialState, { type }) => {
   const cases = {
     [CHECK_ANSWER]: { ...state, checking: true },
-    [SAVE_QUESTION]: {
-      ...state,
-      question: payload.results,
-      errorToken: payload.response_code,
-    },
+    // [SAVE_QUESTION]: {
+    //   ...state,
+    //   question: payload.results,
+    //   errorToken: payload.response_code,
+    // },
   };
   if (cases[type]) return cases[type];
   return state;
