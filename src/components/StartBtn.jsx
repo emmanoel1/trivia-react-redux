@@ -7,9 +7,7 @@ class StartBtn extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-
-    };
+    this.state = {};
 
     this.handlePlayBtn = this.handlePlayBtn.bind(this);
   }
@@ -17,21 +15,13 @@ class StartBtn extends React.Component {
   async handlePlayBtn() {
     const { history } = this.props;
     const token = await getToken();
-    console.log(token);
-    // const game = await get(token.token);
-    // console.log(game);
     localStorage.setItem('token', JSON.stringify(token));
     history.push('/game');
   }
 
   render() {
     return (
-
-      <button
-        data-testid="btn-play"
-        type="button"
-        onClick={ () => this.handlePlayBtn() }
-      >
+      <button data-testid="btn-play" type="button" onClick={ () => this.handlePlayBtn() }>
         Play
       </button>
     );
