@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Question from '../components/Question';
+// import Question from '../components/Question';
 import { getItemLocalStore } from '../helpers/index';
 import getQuestions from '../service/get';
 import GameHeader from '../components/GameHeader';
@@ -19,31 +19,31 @@ class Game extends Component {
           type: 'tipo',
         },
       ],
-      errorToken: 0,
+      // errorToken: 0,
     };
   }
 
   componentDidMount() {
-    this.getQuest();
+    // this.getQuest();
   }
 
   getQuest = () => {
     const token = getItemLocalStore('token');
     getQuestions(token.token).then((game) => this.setState({
       questions: game.results,
-      errorToken: game.response_code,
+      // errorToken: game.response_code,
     }));
   };
 
   render() {
-    const { questions, errorToken } = this.state;
+    const { questions } = this.state;
     if (questions === []) {
       return <p>carregando</p>;
     }
     return (
       <div className="flex items-center flex-col">
         <GameHeader />
-        <Question question={ questions[0] } errorToken={ errorToken } />
+        {/* <Question question={ questions[0] } errorToken={ errorToken } /> */}
         <button type="button">Next</button>
       </div>
     );

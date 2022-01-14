@@ -12,15 +12,15 @@ class Question extends Component {
     this.state = { incorrectAnswers: [], correctAnswer: '', shuffleAnswers: [] };
   }
 
-  componentDidMount() {
-    const { getQuestionsProp } = this.props;
-    console.log(getQuestionsProp);
-    const DOIS_SEG = 2000;
-    this.getQuest();
-    setTimeout(() => {
-      this.randomAnswers();
-    }, DOIS_SEG);
-  }
+  // componentDidMount() {
+  //   const { getQuestionsProp } = this.props;
+  //   console.log(getQuestionsProp);
+  //   const DOIS_SEG = 2000;
+  //   this.getQuest();
+  //   setTimeout(() => {
+  //     this.randomAnswers();
+  //   }, DOIS_SEG);
+  // }
 
   getQuest = () => {
     const token = getItemLocalStore('token');
@@ -106,7 +106,7 @@ Question.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = () => ({
   com: 'test',
 });
 
