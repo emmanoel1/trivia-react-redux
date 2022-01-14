@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Answer from './Answer';
 import { getItemLocalStore } from '../helpers';
 import getQuestions from '../service/get';
@@ -11,6 +12,7 @@ class Question extends Component {
   }
 
   componentDidMount() {
+    cob;
     const DOIS_SEG = 2000;
     this.getQuest();
     setTimeout(() => {
@@ -102,4 +104,12 @@ Question.propTypes = {
   }).isRequired,
 };
 
-export default Question;
+const mapStateToProps = (state) => ({
+  com: 'test',
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getQuestionsProp: () => dispatch(getQuestionsAct()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Question);
