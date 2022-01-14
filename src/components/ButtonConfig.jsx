@@ -12,7 +12,8 @@ class ButtonConfig extends Component {
       <button
         type="button"
         data-testid="btn-settings"
-        className="bg-gray-300"
+        className="`shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline
+              focus:outline-none text-white font-bold py-2 px-4 rounded`"
         onClick={ this.handleClick }
       >
         <i className="fas fa-cogs" />
