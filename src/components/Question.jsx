@@ -11,10 +11,11 @@ class Question extends Component {
   }
 
   componentDidMount() {
+    const DOIS_SEG = 2000;
     this.getQuest();
     setTimeout(() => {
       this.randomAnswers();
-    }, 2000);
+    }, DOIS_SEG);
   }
 
   getQuest = () => {
@@ -74,10 +75,11 @@ class Question extends Component {
       <div className="flex flex-col w-1/4">
         <div data-testid="question-category">{category}</div>
         <div data-testid="question-text">{question}</div>
-        <div className="flex flex-col ">
+        <div className="flex flex-col" data-testid="answer-options">
           {shuffleAnswers.map((answer, index) => (
             <Answer
               key={ index }
+              index={ index }
               dataTest="correct-answer"
               isCorrect={ answer === correctAnswer }
               answer={ answer }
