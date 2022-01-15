@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Answer from './Answer';
-import { getItemLocalStore } from '../helpers';
-import getQuestions from '../service/get';
 import { getQuestionsAct } from '../redux/actions';
 
 class Question extends Component {
@@ -12,28 +10,23 @@ class Question extends Component {
     this.state = { incorrectAnswers: [], correctAnswer: '', shuffleAnswers: [] };
   }
 
-  // componentDidMount() {
-  //   const { getQuestionsProp } = this.props;
-  //   console.log(getQuestionsProp);
-  //   const DOIS_SEG = 2000;
-  //   this.getQuest();
-  //   setTimeout(() => {
-  //     this.randomAnswers();
-  //   }, DOIS_SEG);
-  // }
+  componentDidMount() {
+    const { question } = this.props;
+    this.getQuest(question);
+  }
 
-  getQuest = () => {
-    const token = getItemLocalStore('token');
-    getQuestions(token.token).then((game) => this.setState({
-      question: game.results[0],
-      errorToken: game.response_code,
-    }));
+  getQuest = (question) => {
+    this.setState(
+      {
+        correctAnswer: question.correct_answer,
+        incorrectAnswers: question.incorrect_answers,
+      },
+      () => this.randomAnswers(question.results),
+    );
   };
 
   randomAnswers = () => {
-    const {
-      question: { correct_answer: correctAnswer, incorrect_answers: incorrectAnswers },
-    } = this.state;
+    const { correctAnswer, incorrectAnswers } = this.state;
 
     const answers = [...incorrectAnswers, correctAnswer];
 
