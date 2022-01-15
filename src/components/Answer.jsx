@@ -14,10 +14,10 @@ class Answer extends Component {
   }
 
   componentDidMount() {
-    // setInterval(() => {
-    //   const { checkAnswer } = this.props;
-    //   if (checkAnswer) return this.checkQuestion();
-    // }, 10);
+    setInterval(() => {
+      const { checkAnswer } = this.props;
+      if (checkAnswer) return this.checkQuestion();
+    }, 10);
   }
 
   checkQuestion = () => {
@@ -29,8 +29,13 @@ class Answer extends Component {
     }
   };
 
+  onClickAnswer = () => {
+    const { checkQuestionProp } = this.props;
+    checkQuestionProp();
+  };
+
   render() {
-    // checkQuestionProp
+    //
     const { answer } = this.props;
     const { className, dataTest } = this.state;
     return (
@@ -39,7 +44,7 @@ class Answer extends Component {
         type="button"
         className={ `${className} bg-zinc-300 border
         border-zinc-400 p-6 w-full mb-5 hover:bg-sky-700` }
-        // onClick={ checkQuestionProp }
+        onClick={ () => this.onClickAnswer() }
       >
         {answer}
       </button>
