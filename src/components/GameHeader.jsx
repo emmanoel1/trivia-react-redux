@@ -17,7 +17,7 @@ class GameHeader extends Component {
 
   async mountGravatar() {
     // const { email } = this.props;
-    const email = 'any@gmail.com';
+    const email = 'fmateusturola@gmail.com';
     const hashEmail = md5(email).toString();
     const result = await getGravatar(hashEmail);
     this.setState({
@@ -29,17 +29,9 @@ class GameHeader extends Component {
     const { imgUrl } = this.state;
     return (
       <header>
-        <img
-          data-testid="header-profile-picture"
-          src={ imgUrl }
-          alt="Player Profile"
-        />
-        <p data-testid="header-player-name">
-          {}
-        </p>
-        <p data-testid="header-score">
-          {}
-        </p>
+        <img data-testid="header-profile-picture" src={ imgUrl } alt="Player Profile" />
+        <p data-testid="header-player-name">{}</p>
+        <p data-testid="header-score">{}</p>
       </header>
     );
   }

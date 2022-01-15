@@ -2,16 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getTokenAct } from '../redux/actions';
+import { getQuestionsAct, getTokenAct, saveToken } from '../redux/actions';
 import { getItemLocalStore } from '../helpers';
-// import getToken from '../service/getToken';
 
 class StartBtn extends React.Component {
   constructor() {
     super();
 
-    this.state = {
-    };
+    this.state = {};
 
     this.handlePlayBtn = this.handlePlayBtn.bind(this);
   }
@@ -22,14 +20,17 @@ class StartBtn extends React.Component {
       const { setDispatch } = this.props;
       setDispatch();
     }
+
+    const { saveTokenLocal, getQuestionsProp } = this.props;
+    console.log(tokenLocal);
+    saveTokenLocal(tokenLocal);
+    getQuestionsProp(tokenLocal);
   }
 
   render() {
     const { isDisabled } = this.props;
     return (
-      <Link
-        to="/game"
-      >
+      <Link to="/game">
         <button
           className={
             isDisabled
@@ -51,18 +52,16 @@ class StartBtn extends React.Component {
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   token: state.gameReducer.token,
-// });
-
 const mapDispatchToProps = (dispatch) => ({
-  setDispatch: () => dispatch(getTokenAct()),
+  setDispatch: (token) => dispatch(getTokenAct(token)),
+  saveTokenLocal: (token) => dispatch(saveToken(token)),
+  getQuestionsProp: (token) => dispatch(getQuestionsAct(token)),
 });
 
 StartBtn.propTypes = {
   isDisabled: PropTypes.bool.isRequired,
   setDispatch: PropTypes.func.isRequired,
-  // token: PropTypes.arrayOf(Object).isRequired,
+  saveTokenLocal: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(StartBtn);

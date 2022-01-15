@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-// import Question from '../components/Question';
-import { getItemLocalStore } from '../helpers/index';
-import getQuestions from '../service/get';
+import { connect } from 'react-redux';
+import Question from '../components/Question';
 import GameHeader from '../components/GameHeader';
+import { getItemLocalStore } from '../helpers';
+import { getQuestionsAct, saveToken } from '../redux/actions';
 // import PropTypes from 'prop-types';
 
 class Game extends Component {
   constructor() {
     super();
-    this.state = {
+    /*  this.state = {
       questions: [
         {
           category: 'categoria',
@@ -20,34 +21,42 @@ class Game extends Component {
         },
       ],
       // errorToken: 0,
-    };
+    }; */
   }
 
   componentDidMount() {
-    // this.getQuest();
+    console.log('componentDidMount');
+    this.getQuest();
   }
 
   getQuest = () => {
+    console.log('funçao getQuest');
+    const { getQuestions, saveTokenLocal } = this.props;
+
     const token = getItemLocalStore('token');
-    getQuestions(token.token).then((game) => this.setState({
-      questions: game.results,
-      // errorToken: game.response_code,
-    }));
+    console.log(token);
+    saveTokenLocal(token);
   };
 
   render() {
-    const { questions } = this.state;
-    if (questions === []) {
-      return <p>carregando</p>;
-    }
+    const { questions } = this.props;
     return (
       <div className="flex items-center flex-col">
         <GameHeader />
-        {/* <Question question={ questions[0] } errorToken={ errorToken } /> */}
+        {questions ? <Question question={ questions[0] } errorToken="0" /> : <p>Loading</p>}
         <button type="button">Next</button>
       </div>
     );
   }
 }
 
-export default Game;
+const mapStateToProps = (state) => ({
+  questions: state.gameReducer.question.results,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getQuestions: (token) => dispatch(getQuestionsAct(token)),
+  saveTokenLocal: (token) => dispatch(saveToken(token)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

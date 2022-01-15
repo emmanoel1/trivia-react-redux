@@ -1,21 +1,15 @@
-import { CHECK_ANSWER, SAVE_TOKEN } from '../actions';
+import { CHECK_ANSWER, SAVE_QUESTION } from '../actions';
 
 const initialState = {
-  token: [],
   checking: false,
-  question: [],
+  question: {},
   errorToken: 0,
 };
 
-const gameReducer = (state = initialState, { type, payload }) => {
+const gameReducer = (state = initialState, { type, question }) => {
   const cases = {
-    [SAVE_TOKEN]: { ...state, token: payload },
     [CHECK_ANSWER]: { ...state, checking: true },
-    // [SAVE_QUESTION]: {
-    //   ...state,
-    //   question: payload.results,
-    //   errorToken: payload.response_code,
-    // },
+    [SAVE_QUESTION]: { ...state, question },
   };
   if (cases[type]) return cases[type];
   return state;
