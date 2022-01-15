@@ -1,4 +1,4 @@
-import { getItemLocalStore, setItemLocalStore } from '../../helpers';
+import { setItemLocalStore } from '../../helpers';
 import getQuestions from '../../service/get';
 import getToken from '../../service/getToken';
 
@@ -10,7 +10,7 @@ export const SAVE_TOKEN = 'SAVE_TOKEN';
 export const addPlayer = (payload) => ({ type: ADD_PLAYER, payload });
 
 export const checkAnswerAct = () => ({ type: CHECK_ANSWER });
-export const saveQuestionAct = (question) => ({
+export const saveQuestAct = (question) => ({
   type: SAVE_QUESTION,
   question,
 });
@@ -18,7 +18,10 @@ export const saveToken = (payload) => ({ type: SAVE_TOKEN, payload });
 
 /// THUNKS
 
-export const getQuestionsAct = (token) => (dispatch) => getQuestions(token).then((data) => dispatch(saveQuestionAct(data)));
+export const getQuestionsAct = (token) => {
+  console.log('');
+  return (dispatch) => getQuestions(token).then((data) => dispatch(saveQuestAct(data)));
+};
 
 export const getTokenAct = () => (dispatch) => {
   getToken()

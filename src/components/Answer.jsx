@@ -14,18 +14,19 @@ class Answer extends Component {
   }
 
   componentDidMount() {
+    const TEN = 10;
     setInterval(() => {
-      const { checkAnswer } = this.props;
-      if (checkAnswer) return this.checkQuestion();
-    }, 10);
+      const { checkAnswer, index } = this.props;
+      if (checkAnswer) return this.checkQuestion(index);
+    }, TEN);
   }
 
-  checkQuestion = () => {
+  checkQuestion = (index) => {
     const { isCorrect } = this.props;
     if (isCorrect) {
       this.setState({ className: 'correct-answer', dataTest: 'correct-answer' });
     } else {
-      this.setState({ className: 'wrong-answer', dataTest: 'wrong-answer-0' });
+      this.setState({ className: 'wrong-answer', dataTest: `wrong-answer-${index}` });
     }
   };
 
@@ -54,8 +55,10 @@ class Answer extends Component {
 
 Answer.propTypes = {
   answer: PropTypes.string.isRequired,
-  // index: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
   isCorrect: PropTypes.bool.isRequired,
+  checkQuestionProp: PropTypes.func.isRequired,
+  checkAnswer: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({

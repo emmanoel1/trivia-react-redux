@@ -21,10 +21,8 @@ class StartBtn extends React.Component {
       setDispatch();
     }
 
-    const { saveTokenLocal, getQuestionsProp } = this.props;
-    console.log(tokenLocal);
+    const { saveTokenLocal } = this.props;
     saveTokenLocal(tokenLocal);
-    getQuestionsProp(tokenLocal);
   }
 
   render() {
