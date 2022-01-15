@@ -10,6 +10,7 @@ class Answer extends Component {
     this.state = {
       className: '',
       dataTest: '',
+      disabled: false,
     };
   }
 
@@ -22,15 +23,24 @@ class Answer extends Component {
   }
 
   checkQuestion = (index) => {
+    this.setState({ disabled: true });
+    const UM_NEGATIVE = -1;
+    let wrongNumber = Number(index) - 1;
+    if (wrongNumber === UM_NEGATIVE) wrongNumber = 0;
+
     const { isCorrect } = this.props;
     if (isCorrect) {
       this.setState({ className: 'correct-answer', dataTest: 'correct-answer' });
     } else {
-      this.setState({ className: 'wrong-answer', dataTest: `wrong-answer-${index}` });
+      this.setState({
+        className: 'wrong-answer',
+        dataTest: `wrong-answer-${wrongNumber}`,
+      });
     }
   };
 
   onClickAnswer = () => {
+    console.log('ERA PARA ISSO ACONTECER?');
     const { checkQuestionProp } = this.props;
     checkQuestionProp();
   };
@@ -38,7 +48,7 @@ class Answer extends Component {
   render() {
     //
     const { answer } = this.props;
-    const { className, dataTest } = this.state;
+    const { className, dataTest, disabled } = this.state;
     return (
       <button
         data-testid={ dataTest }
@@ -46,6 +56,7 @@ class Answer extends Component {
         className={ `${className} bg-zinc-300 border
         border-zinc-400 p-6 w-full mb-5 hover:bg-sky-700` }
         onClick={ () => this.onClickAnswer() }
+        disabled={ disabled }
       >
         {answer}
       </button>
