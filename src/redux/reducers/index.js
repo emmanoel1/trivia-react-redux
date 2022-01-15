@@ -7,10 +7,11 @@ import { CHECK_ANSWER, SAVE_TOKEN, ADD_PLAYER } from '../actions';
 
 const initialState = {
   token: [],
-  name: '',
+  userInfo: [],
+  // name: '',
   assertions: 0,
   score: 0,
-  gravatarEmail: '',
+  // gravatarEmail: '',
   checking: false,
   question: [],
   errorToken: 0,
@@ -22,8 +23,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
     [CHECK_ANSWER]: { ...state, checking: true },
     [ADD_PLAYER]: {
       ...state,
-      name: payload,
-      gravatarEmail: payload,
+      userInfo: payload,
     },
     // [SAVE_QUESTION]: {
     //   ...state,

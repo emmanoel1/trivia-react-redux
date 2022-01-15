@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
+import { connect } from 'react-redux';
 import getGravatar from '../service/getGravatar';
 
 class GameHeader extends Component {
@@ -16,8 +17,7 @@ class GameHeader extends Component {
   }
 
   async mountGravatar() {
-    // const { email } = this.props;
-    const email = 'any@gmail.com';
+    const { email } = this.props;
     const hashEmail = md5(email).toString();
     const result = await getGravatar(hashEmail);
     this.setState({
@@ -27,6 +27,7 @@ class GameHeader extends Component {
 
   render() {
     const { imgUrl } = this.state;
+    const { name, score } = this.props;
     return (
       <header>
         <img
@@ -35,18 +36,26 @@ class GameHeader extends Component {
           alt="Player Profile"
         />
         <p data-testid="header-player-name">
-          {}
+          {name}
         </p>
         <p data-testid="header-score">
-          {}
+          {score}
         </p>
       </header>
     );
   }
 }
 
-// GameHeader.propTypes = {
-//   email: PropTypes.string.isRequired,
-// };
+const mapStateToProps = (state) => ({
+  email: state.userInfo.email,
+  name: state.userInfo.name,
+  score: state.score,
+});
 
-export default GameHeader;
+GameHeader.propTypes = {
+  email: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
+};
+
+export default connect(mapStateToProps)(GameHeader);
