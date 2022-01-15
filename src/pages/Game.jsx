@@ -4,12 +4,17 @@ import PropTypes from 'prop-types';
 import Question from '../components/Question';
 import GameHeader from '../components/GameHeader';
 import { getItemLocalStore } from '../helpers';
-import { getQuestionsAct, saveToken } from '../redux/actions';
+import { getQuestionsAct, getTokenAct, saveToken } from '../redux/actions';
 
 class Game extends Component {
   componentDidMount() {
     this.getQuest();
   }
+
+  verifyToken = () => {
+    const { errorToken, tokenFromAPI } = this.props;
+    if (errorToken !== 0) return tokenFromAPI();
+  };
 
   getQuest = () => {
     const { saveTokenLocal, getQuestionsProp } = this.props;
@@ -35,15 +40,19 @@ Game.propTypes = {
   questions: PropTypes.node.isRequired,
   saveTokenLocal: PropTypes.func.isRequired,
   getQuestionsProp: PropTypes.func.isRequired,
+  tokenFromAPI: PropTypes.func.isRequired,
+  errorToken: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   questions: state.gameReducer.question.results,
+  errorToken: state.gameReducer.errorToken,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   saveTokenLocal: (token) => dispatch(saveToken(token)),
   getQuestionsProp: (token) => dispatch(getQuestionsAct(token)),
+  tokenFromAPI: (token) => dispatch(getTokenAct(token)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
