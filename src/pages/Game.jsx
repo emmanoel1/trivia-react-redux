@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import Question from '../components/Question';
 import GameHeader from '../components/GameHeader';
 import { getQuestionsAct, getTokenAct, saveToken } from '../redux/actions';
-import getToken from '../service/getToken';
-import { setItemLocalStore } from '../helpers';
 
 class Game extends Component {
 /*   async componentDidMount() {
@@ -34,12 +32,8 @@ class Game extends Component {
 }
 
 Game.propTypes = {
-  saveTokenLocal: PropTypes.func.isRequired,
   questions: PropTypes.node.isRequired,
-  getQuestionsProp: PropTypes.func.isRequired,
   errorToken: PropTypes.number.isRequired,
-  token: PropTypes.string.isRequired,
-  tokenFromAPI: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

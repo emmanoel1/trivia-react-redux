@@ -19,9 +19,8 @@ export const saveToken = (payload) => ({ type: SAVE_TOKEN, payload });
 
 /// THUNKS
 
-export const getQuestionsAct = (token) => (dispatch, getState) => {
-
-/*   if (token.length === 0) {
+export const getQuestionsAct = (token) => (dispatch) => {
+/*  if (token.length === 0) {
     getToken().then((newToken) => {
       console.log('TOOOOKEENNN TOOKEEN TOOKEN', newToken);
       dispatch(saveToken(newToken.token));
