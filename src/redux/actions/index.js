@@ -18,13 +18,29 @@ export const saveToken = (payload) => ({ type: SAVE_TOKEN, payload });
 
 /// THUNKS
 
-export const getQuestionsAct = (token) => {
+export const getQuestionsAct = (token) => (dispatch) => getQuestions(token).then((data) => {
+  console.log(data);
+  const RESP_CODE_ERROR = 3;
+  if (data.response_code === RESP_CODE_ERROR) {
+    getToken().then((newToken) => {
+      console.log({ teste: newToken.token });
+      dispatch(saveToken(newToken.token));
+      setItemLocalStore('token', newToken.token);
+      dispatch(getQuestionsAct(newToken.token));
+    });
+  }
+  return dispatch(saveQuestAct(data));
+});
+
+/* export const getQuestionsAct = (token) => {
   console.log('');
   return (dispatch) => getQuestions(token).then((data) => dispatch(saveQuestAct(data)));
-};
+}; */
 
 export const getTokenAct = () => (dispatch) => {
-  getToken()
-    .then((data) => dispatch(saveToken(data.token)))
-    .then((data) => setItemLocalStore('token', data.payload));
+  getToken().then((data) => {
+    console.log('testeTOKEN', data.token);
+    dispatch(saveToken(data.token));
+    setItemLocalStore('token', data.token);
+  });
 };
