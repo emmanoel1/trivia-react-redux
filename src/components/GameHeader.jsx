@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import md5 from 'crypto-js/md5';
 import { connect } from 'react-redux';
-import getGravatar from '../service/getGravatar';
 
 class GameHeader extends Component {
   constructor() {
@@ -19,9 +18,8 @@ class GameHeader extends Component {
   async mountGravatar() {
     const { email } = this.props;
     const hashEmail = md5(email).toString();
-    const result = await getGravatar(hashEmail);
     this.setState({
-      imgUrl: result.url,
+      imgUrl: `https://www.gravatar.com/avatar/${hashEmail}`,
     });
   }
 
