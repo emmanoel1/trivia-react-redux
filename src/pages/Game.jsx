@@ -25,11 +25,15 @@ class Game extends Component {
   };
 
   render() {
-    const { questions: quest } = this.props;
+    const { questions: quest, errorToken } = this.props;
     return (
       <div className="flex items-center flex-col">
         <GameHeader />
-        {quest ? <Question question={ quest[0] } errorToken="0" /> : <p>Loading</p>}
+        {quest ? (
+          <Question question={ quest[0] } errorToken={ errorToken } />
+        ) : (
+          <p>Loading</p>
+        )}
         <button type="button">Next</button>
       </div>
     );
