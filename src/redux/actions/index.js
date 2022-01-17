@@ -6,6 +6,7 @@ export const ADD_PLAYER = 'ADD_PLAYER';
 export const CHECK_ANSWER = 'CHECK_ANSWER';
 export const SAVE_QUESTION = 'SAVE_QUESTION';
 export const SAVE_TOKEN = 'SAVE_TOKEN';
+export const ERROR_TOKEN = 'ERROR_TOKEN';
 
 export const addPlayer = (payload) => ({ type: ADD_PLAYER, payload });
 
@@ -19,12 +20,22 @@ export const saveToken = (payload) => ({ type: SAVE_TOKEN, payload });
 /// THUNKS
 
 export const getQuestionsAct = (token) => (dispatch, getState) => {
-  console.log('getQuestionsAct', token);
-  console.log('estado token', getState().token);
+  // console.log('getQuestionsAct', ntoken);
+  // console.log('estado token', getState().token);
+  // const { token } = getState();
+  if (token.length === 0) {
+    getToken().then((newToken) => {
+      console.log('TOOOOKEENNN TOOKEEN TOOKEN', newToken);
+      dispatch(saveToken(newToken.token));
+      setItemLocalStore('token', newToken.token);
+      dispatch(getQuestionsAct(newToken.token));
+    });
+  }
+
   getQuestions(token).then((data) => {
     const RESP_CODE_ERROR = 3;
     console.log('response error', data.response_code);
-    if (data.response_code === RESP_CODE_ERROR || data.response_code === '') {
+    if (data.response_code === RESP_CODE_ERROR) {
       getToken().then((newToken) => {
         console.log('newToken', newToken);
         dispatch(saveToken(newToken.token));
@@ -33,7 +44,7 @@ export const getQuestionsAct = (token) => (dispatch, getState) => {
       });
     }
     return dispatch(saveQuestAct(data));
-  });
+  }).catch();
 };
 
 /* export const getQuestionsAct = (token) => {
@@ -49,4 +60,4 @@ export const getTokenAct = () => (dispatch, callback) => getToken(callback)
     dispatch(getQuestionsAct(data.token));
 
     callback();
-  });
+  }).catch(() => dispatch({ type: ERROR_TOKEN }));
