@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Question from '../components/Question';
 import GameHeader from '../components/GameHeader';
-import { getItemLocalStore } from '../helpers';
 import { getQuestionsAct, getTokenAct, saveToken } from '../redux/actions';
 
 class Game extends Component {
@@ -40,6 +39,8 @@ Game.propTypes = {
   questions: PropTypes.node.isRequired,
   getQuestionsProp: PropTypes.func.isRequired,
   errorToken: PropTypes.number.isRequired,
+  token: PropTypes.string.isRequired,
+  tokenFromAPI: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({

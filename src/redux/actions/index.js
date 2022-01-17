@@ -41,9 +41,12 @@ export const getQuestionsAct = (token) => (dispatch, getState) => {
   return (dispatch) => getQuestions(token).then((data) => dispatch(saveQuestAct(data)));
 }; */
 
-export const getTokenAct = () => (dispatch, callback) => getToken(callback).then((data) => {
-  dispatch(saveToken(data.token));
-  setItemLocalStore('token', data.token);
+export const getTokenAct = () => (dispatch, callback) => getToken(callback)
+  .then((data) => {
+    // console.log('testeTOKEN', data.token);
+    dispatch(saveToken(data.token));
+    setItemLocalStore('token', data.token);
+    dispatch(getQuestionsAct(data.token));
 
-  callback();
-});
+    callback();
+  });

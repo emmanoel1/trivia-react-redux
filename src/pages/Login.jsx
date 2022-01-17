@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import LoginForm from '../components/LoginForm';
 
 class Login extends React.Component {
@@ -11,5 +13,9 @@ class Login extends React.Component {
     );
   }
 }
-
+Login.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 export default Login;

@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addPlayer, getTokenAct } from '../redux/actions';
-import { getItemLocalStore } from '../helpers';
 
 class StartBtn extends React.Component {
   constructor() {
@@ -53,11 +52,13 @@ const mapDispatchToProps = (dispatch) => ({
 
 StartBtn.propTypes = {
   isDisabled: PropTypes.bool.isRequired,
-  setDispatch: PropTypes.func.isRequired,
   saveTokenLocal: PropTypes.func.isRequired,
   userDispatch: PropTypes.func.isRequired,
   nameUser: PropTypes.string.isRequired,
   emailUser: PropTypes.string.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(StartBtn);

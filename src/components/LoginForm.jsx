@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import StartBtn from './StartBtn';
 
 class LoginForm extends Component {
@@ -80,5 +81,11 @@ class LoginForm extends Component {
     );
   }
 }
+
+LoginForm.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 export default LoginForm;

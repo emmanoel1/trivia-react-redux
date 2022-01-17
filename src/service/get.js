@@ -13,9 +13,3 @@ const getQuestions = async (token) => {
 };
 
 export default getQuestions;
-
-const TOKEN_URL = 'https://opentdb.com/api_token.php?command=request';
-const baseUrlQuestions = 'https://opentdb.com/api.php?amount=5&token=';
-export const questionsAPI = (token) => fetch(`${baseUrlQuestions}${token}`).then((response) => response
-  .json()
-  .then((data) => (response.ok ? Promise.resolve(data) : Promise.reject(data))));
