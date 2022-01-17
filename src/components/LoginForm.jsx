@@ -30,6 +30,7 @@ class LoginForm extends Component {
 
   render() {
     const { email, playerName, isDisabled } = this.state;
+    const { history } = this.props;
 
     return (
       <div className="rounded px-8 pt-6 pb-8 mt-16 mb-4 flex flex-col">
@@ -68,7 +69,7 @@ class LoginForm extends Component {
               onChange={ this.handleChange }
             />
           </label>
-          <StartBtn isDisabled={ isDisabled } />
+          <StartBtn isDisabled={ isDisabled } history={ history } />
         </div>
       </div>
     );

@@ -11,7 +11,7 @@ class HomeTemp extends Component {
     return (
       <header className="App-header">
         <img src={ logo } className="App-logo" alt="logo" />
-        <Login />
+        <Login history={ history } />
         <Link to="/settings">
           <ButtonConfig history={ history } />
         </Link>

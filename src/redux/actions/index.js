@@ -18,29 +18,30 @@ export const saveToken = (payload) => ({ type: SAVE_TOKEN, payload });
 
 /// THUNKS
 
-export const getQuestionsAct = (token) => (dispatch) => getQuestions(token).then((data) => {
-  console.log(data);
-  const RESP_CODE_ERROR = 3;
-  if (data.response_code === RESP_CODE_ERROR) {
-    getToken().then((newToken) => {
-      console.log({ teste: newToken.token });
-      dispatch(saveToken(newToken.token));
-      setItemLocalStore('token', newToken.token);
-      dispatch(getQuestionsAct(newToken.token));
-    });
-  }
-  return dispatch(saveQuestAct(data));
-});
+export const getQuestionsAct = (token) => (dispatch) => {
+  // log
+  console.log('teste');
+  getQuestions(token).then((data) => {
+    const RESP_CODE_ERROR = 3;
+    if (data.response_code === RESP_CODE_ERROR) {
+      getToken().then((newToken) => {
+        dispatch(saveToken(newToken.token));
+        setItemLocalStore('token', newToken.token);
+        dispatch(getQuestionsAct(newToken.token));
+      });
+    }
+    return dispatch(saveQuestAct(data));
+  });
+};
 
 /* export const getQuestionsAct = (token) => {
   console.log('');
   return (dispatch) => getQuestions(token).then((data) => dispatch(saveQuestAct(data)));
 }; */
 
-export const getTokenAct = () => (dispatch) => {
-  getToken().then((data) => {
-    console.log('testeTOKEN', data.token);
-    dispatch(saveToken(data.token));
-    setItemLocalStore('token', data.token);
-  });
-};
+export const getTokenAct = () => (dispatch, callback) => getToken(callback).then((data) => {
+  console.log('testeTOKEN', data.token);
+  dispatch(saveToken(data.token));
+  setItemLocalStore('token', data.token);
+  callback();
+});

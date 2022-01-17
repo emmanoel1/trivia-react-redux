@@ -11,17 +11,10 @@ class Game extends Component {
     this.getQuest();
   }
 
-  verifyToken = () => {
-    const { errorToken, tokenFromAPI } = this.props;
-    if (errorToken !== 0) return tokenFromAPI();
-  };
+  getQuest = async () => {
+    const { getQuestionsProp, token } = this.props;
 
-  getQuest = () => {
-    const { saveTokenLocal, getQuestionsProp } = this.props;
-
-    const token = getItemLocalStore('token');
-    saveTokenLocal(token);
-    getQuestionsProp(token);
+    await getQuestionsProp(token);
   };
 
   render() {
@@ -42,15 +35,14 @@ class Game extends Component {
 
 Game.propTypes = {
   questions: PropTypes.node.isRequired,
-  saveTokenLocal: PropTypes.func.isRequired,
   getQuestionsProp: PropTypes.func.isRequired,
-  tokenFromAPI: PropTypes.func.isRequired,
   errorToken: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   questions: state.gameReducer.question.results,
   errorToken: state.gameReducer.errorToken,
+  token: state.token,
 });
 
 const mapDispatchToProps = (dispatch) => ({

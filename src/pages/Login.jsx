@@ -3,9 +3,10 @@ import LoginForm from '../components/LoginForm';
 
 class Login extends React.Component {
   render() {
+    const { history } = this.props;
     return (
       <div>
-        <LoginForm />
+        <LoginForm history={ history } />
       </div>
     );
   }
