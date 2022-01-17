@@ -8,26 +8,12 @@ import getToken from '../service/getToken';
 import { setItemLocalStore } from '../helpers';
 
 class Game extends Component {
-  async componentDidMount() {
+/*   async componentDidMount() {
     // this.getQuest();
     const { getQuestionsProp, token, tokenFromAPI, saveTokenLocal } = this.props;
 
-    // if (!token) {
-    //   tokenFromAPI();
-    // }
-
-    // console.log(getToken());
-    if (token.length === 0) {
-      getToken().then((newToken) => {
-        console.log('TOOOOKEENNN TOOKEEN TOOKEN', newToken);
-        saveTokenLocal(newToken.token);
-        setItemLocalStore('token', newToken.token);
-        getQuestionsProp(newToken.token);
-      });
-    }
-
-    await getQuestionsProp(token);
-  }
+     await getQuestionsProp(token);
+  } */
 
   getQuest = async () => {};
 
