@@ -66,8 +66,6 @@ class Question extends Component {
       },
       state: { shuffleAnswers, correctAnswer },
     } = this;
-    // console.log(this.state);
-    // if (this.state) return null;
     return (
       <div className="flex flex-col w-1/4">
         <div data-testid="question-category">{category}</div>

@@ -69,7 +69,12 @@ class LoginForm extends Component {
               onChange={ this.handleChange }
             />
           </label>
-          <StartBtn isDisabled={ isDisabled } history={ history } />
+          <StartBtn
+            isDisabled={ isDisabled }
+            emailUser={ email }
+            nameUser={ playerName }
+            history={ history }
+          />
         </div>
       </div>
     );

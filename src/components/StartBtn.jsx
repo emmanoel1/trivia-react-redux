@@ -1,20 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getQuestionsAct, getTokenAct } from '../redux/actions';
+import { addPlayer, getTokenAct } from '../redux/actions';
 import { getItemLocalStore } from '../helpers';
 
 class StartBtn extends React.Component {
   constructor() {
     super();
-
     this.state = {};
 
     this.handlePlayBtn = this.handlePlayBtn.bind(this);
   }
 
   handlePlayBtn() {
-    const { saveTokenLocal, history } = this.props;
+    const { userDispatch, nameUser, emailUser, saveTokenLocal, history } = this.props;
+
+    userDispatch({ name: nameUser, gravatarEmail: emailUser });
+
     saveTokenLocal(history.push('/game'));
   }
 
@@ -46,13 +48,16 @@ class StartBtn extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   setDispatch: (token) => dispatch(getTokenAct(token)),
   saveTokenLocal: (callback) => dispatch(getTokenAct(callback)),
-  getQuestionsProp: (token) => dispatch(getQuestionsAct(token)),
+  userDispatch: (val) => dispatch(addPlayer(val)),
 });
 
 StartBtn.propTypes = {
   isDisabled: PropTypes.bool.isRequired,
   setDispatch: PropTypes.func.isRequired,
   saveTokenLocal: PropTypes.func.isRequired,
+  userDispatch: PropTypes.func.isRequired,
+  nameUser: PropTypes.string.isRequired,
+  emailUser: PropTypes.string.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(StartBtn);

@@ -7,7 +7,6 @@
 }; */
 
 const getQuestions = async (token) => {
-  console.log('TESTE BUSCA PERGUNTA', token);
   const request = await fetch(`https://opentdb.com/api.php?amount=5&token=${token}`);
   const result = await request.json();
   return result;

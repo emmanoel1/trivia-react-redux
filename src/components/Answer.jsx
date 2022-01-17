@@ -17,30 +17,42 @@ class Answer extends Component {
   componentDidMount() {
     const TEN = 10;
     setInterval(() => {
-      const { checkAnswer, index } = this.props;
-      if (checkAnswer) return this.checkQuestion(index);
+      const { checkAnswer } = this.props;
+      if (checkAnswer) return this.checkQuestion();
     }, TEN);
+    const { index } = this.props;
+    this.checkQuestionBefore(index);
   }
 
-  checkQuestion = (index) => {
+  checkQuestion = () => {
     this.setState({ disabled: true });
+
+    const { isCorrect } = this.props;
+    if (isCorrect) {
+      this.setState({ className: 'correct-answer' });
+    } else {
+      this.setState({
+        className: 'wrong-answer',
+      });
+    }
+  };
+
+  checkQuestionBefore = (index) => {
     const UM_NEGATIVE = -1;
     let wrongNumber = Number(index) - 1;
     if (wrongNumber === UM_NEGATIVE) wrongNumber = 0;
 
     const { isCorrect } = this.props;
     if (isCorrect) {
-      this.setState({ className: 'correct-answer', dataTest: 'correct-answer' });
+      this.setState({ dataTest: 'correct-answer' });
     } else {
       this.setState({
-        className: 'wrong-answer',
         dataTest: `wrong-answer-${wrongNumber}`,
       });
     }
   };
 
   onClickAnswer = () => {
-    console.log('ERA PARA ISSO ACONTECER?');
     const { checkQuestionProp } = this.props;
     checkQuestionProp();
   };
