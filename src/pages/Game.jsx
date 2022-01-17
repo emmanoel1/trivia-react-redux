@@ -7,13 +7,17 @@ import { getItemLocalStore } from '../helpers';
 import { getQuestionsAct, getTokenAct, saveToken } from '../redux/actions';
 
 class Game extends Component {
-  /*   async componentDidMount() {
+  async componentDidMount() {
     // this.getQuest();
-    const { getQuestionsProp, token } = this.props;
+    const { getQuestionsProp, token, tokenFromAPI } = this.props;
+
+    if (!token) {
+      tokenFromAPI();
+    }
 
     await getQuestionsProp(token);
   }
- */
+
   getQuest = async () => {};
 
   render() {

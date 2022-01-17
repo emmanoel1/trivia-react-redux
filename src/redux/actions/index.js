@@ -18,11 +18,15 @@ export const saveToken = (payload) => ({ type: SAVE_TOKEN, payload });
 
 /// THUNKS
 
-export const getQuestionsAct = (token) => (dispatch) => {
+export const getQuestionsAct = (token) => (dispatch, getState) => {
+  console.log('getQuestionsAct', token);
+  console.log('estado token', getState().token);
   getQuestions(token).then((data) => {
     const RESP_CODE_ERROR = 3;
-    if (data.response_code === RESP_CODE_ERROR) {
+    console.log('response error', data.response_code);
+    if (data.response_code === RESP_CODE_ERROR || data.response_code === '') {
       getToken().then((newToken) => {
+        console.log('newToken', newToken);
         dispatch(saveToken(newToken.token));
         setItemLocalStore('token', newToken.token);
         dispatch(getQuestionsAct(newToken.token));
@@ -38,10 +42,8 @@ export const getQuestionsAct = (token) => (dispatch) => {
 }; */
 
 export const getTokenAct = () => (dispatch, callback) => getToken(callback).then((data) => {
-  console.log('testeTOKEN', data.token);
   dispatch(saveToken(data.token));
   setItemLocalStore('token', data.token);
-  dispatch(getQuestionsAct(data.token));
 
   callback();
 });
