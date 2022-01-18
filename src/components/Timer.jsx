@@ -12,7 +12,7 @@ class Timer extends Component {
   }
 
   componentDidMount() {
-    const {setTimer} = this.props
+    const { setTimer } = this.props;
     const ONE_SECOND = 1000;
     const THIRTY_SECOND = 32000;
     const teste = setInterval(() => {
@@ -31,7 +31,10 @@ class Timer extends Component {
   }
 }
 
-Timer.propTypes = {};
+Timer.propTypes = {
+  timerGlobal: PropTypes.number.isRequired,
+  setTimer: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   timerGlobal: state.gameReducer.timerGlobal,

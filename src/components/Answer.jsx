@@ -83,6 +83,7 @@ Answer.propTypes = {
   isCorrect: PropTypes.bool.isRequired,
   checkQuestionProp: PropTypes.func.isRequired,
   checkAnswer: PropTypes.bool.isRequired,
+  timerGlobal: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
