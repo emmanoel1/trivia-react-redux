@@ -26,9 +26,9 @@ class Answer extends Component {
   }
 
   checkQuestion = () => {
+    const { isCorrect } = this.props;
     this.setState({ disabled: true });
 
-    const { isCorrect } = this.props;
     if (isCorrect) {
       this.setState({ className: 'correct-answer' });
     } else {
@@ -89,7 +89,6 @@ Answer.propTypes = {
 const mapStateToProps = (state) => ({
   checkAnswer: state.gameReducer.checking,
   timerGlobal: state.gameReducer.timerGlobal,
-
 });
 
 const mapDispatchToProps = (dispatch) => ({

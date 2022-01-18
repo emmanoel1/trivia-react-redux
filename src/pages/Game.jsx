@@ -6,26 +6,37 @@ import GameHeader from '../components/GameHeader';
 import { getQuestionsAct, getTokenAct, saveToken } from '../redux/actions';
 
 class Game extends Component {
-/*   async componentDidMount() {
-    // this.getQuest();
-    const { getQuestionsProp, token, tokenFromAPI, saveTokenLocal } = this.props;
+  constructor() {
+    super();
+    this.state = {
+      numberQuest: 0,
+    };
+  }
 
-     await getQuestionsProp(token);
-  } */
-
-  getQuest = async () => {};
+  nextQuestion = (nq) => {
+    if (nq < 4) {
+      this.setState((state) => ({ numberQuest: state.numberQuest + 1 }));
+    }
+  };
 
   render() {
     const { questions: quest, errorToken } = this.props;
+    const { numberQuest } = this.state;
     return (
       <div className="flex items-center flex-col">
         <GameHeader />
         {quest ? (
-          <Question question={ quest[0] } errorToken={ errorToken } />
+          <Question
+            question={ quest[numberQuest] }
+            errorToken={ errorToken }
+            numberQuest={ numberQuest }
+          />
         ) : (
           <p>Loading</p>
         )}
-        <button type="button">Next</button>
+        <button type="button" onClick={ () => this.nextQuestion(numberQuest) }>
+          Next
+        </button>
       </div>
     );
   }
