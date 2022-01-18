@@ -53,14 +53,15 @@ class Answer extends Component {
     }
   };
 
-  onClickAnswer = () => {
-    const { checkQuestionProp } = this.props;
+  onClickAnswer = (isCorrect) => {
+    const { checkQuestionProp, checkScore } = this.props;
     checkQuestionProp();
+    checkScore(isCorrect);
   };
 
   render() {
     //
-    const { answer } = this.props;
+    const { answer, isCorrect } = this.props;
     const { className, dataTest, disabled } = this.state;
     return (
       <button
@@ -68,7 +69,7 @@ class Answer extends Component {
         type="button"
         className={ `${className} bg-zinc-300 border
         border-zinc-400 p-6 w-full mb-5 hover:bg-sky-700` }
-        onClick={ () => this.onClickAnswer() }
+        onClick={ () => this.onClickAnswer(isCorrect) }
         disabled={ disabled }
       >
         {answer}
@@ -84,6 +85,7 @@ Answer.propTypes = {
   checkQuestionProp: PropTypes.func.isRequired,
   checkAnswer: PropTypes.bool.isRequired,
   timerGlobal: PropTypes.number.isRequired,
+  checkScore: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
