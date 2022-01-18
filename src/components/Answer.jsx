@@ -18,26 +18,25 @@ class Answer extends Component {
     const TEN = 10;
     setInterval(() => {
       const { checkAnswer, timerGlobal, disableAnswerProp } = this.props;
-      if (timerGlobal === 0) disableAnswerProp();
+      if (timerGlobal <= 0) disableAnswerProp();
       if (checkAnswer) {
-        this.checkQuestion(); 
+        this.checkQuestion();
       } else this.clearState();
+      const { index } = this.props;
+      this.checkQuestionBefore(index);
     }, TEN);
-    const { index } = this.props;
-    this.checkQuestionBefore(index);
   }
 
   clearState = () => {
-        this.setState({
+   this.setState({
       className: '',
       dataTest: '',
-      disabled: false,
     });
   }
 
   checkQuestion = () => {
     const { isCorrect, disableAnswerProp } = this.props;
-    disableAnswerProp()
+    // disableAnswerProp()
     if (isCorrect) {
       this.setState({ className: 'correct-answer' });
     } else {
@@ -98,7 +97,7 @@ Answer.propTypes = {
 const mapStateToProps = (state) => ({
   checkAnswer: state.gameReducer.checking,
   timerGlobal: state.gameReducer.timerGlobal,
-  disabled: state.gameReducer.disabled,
+  disabled: state.gameReducer.disableAnswer,
 });
 
 const mapDispatchToProps = (dispatch) => ({

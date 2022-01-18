@@ -80,7 +80,7 @@ class Game extends Component {
           <p>Loading</p>
         )}
         {nextQuestion && (
-          <button type="button" onClick={ () => this.nextQuestion(numberQuest) }>
+          <button type="button" onClick={ () => this.nextQuestion(numberQuest) } data-testid="btn-next">
             Next
           </button>
         )}

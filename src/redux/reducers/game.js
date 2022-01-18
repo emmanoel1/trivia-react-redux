@@ -1,4 +1,6 @@
-import { CHECK_ANSWER, SAVE_QUESTION, ERROR_TOKEN, SET_TIMER, START_ANSWER, DISABLE_ANSWER } from '../actions';
+import { CHECK_ANSWER, 
+  SAVE_QUESTION,
+   ERROR_TOKEN, SET_TIMER, START_ANSWER, DISABLE_ANSWER } from '../actions';
 
 const initialState = {
   checking: false,
