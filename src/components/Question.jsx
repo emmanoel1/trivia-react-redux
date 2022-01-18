@@ -28,7 +28,7 @@ class Question extends Component {
 
   randomAnswers = () => {
     const { correctAnswer, incorrectAnswers } = this.state;
-
+    console.log('RESPOSTA CORRETA:', correctAnswer);
     const answers = [...incorrectAnswers, correctAnswer];
 
     const shuffleAnswers = this.shuffle(answers);
@@ -63,7 +63,6 @@ class Question extends Component {
   checkScore = (isCorrect) => {
     // 10 + (timer * dificuldade)
     const { question, timerGlobal, saveRankProp } = this.props;
-    console.log('RESPOSTA CORRETA:', isCorrect);
     const correctPoints = 10;
     const sumScore = {
       easy: 1,
