@@ -10,7 +10,6 @@ class Answer extends Component {
     this.state = {
       className: '',
       dataTest: '',
-      disabled: false,
     };
   }
 
@@ -28,15 +27,14 @@ class Answer extends Component {
   }
 
   clearState = () => {
-   this.setState({
+    this.setState({
       className: '',
       dataTest: '',
     });
-  }
+  };
 
   checkQuestion = () => {
-    const { isCorrect, disableAnswerProp } = this.props;
-    // disableAnswerProp()
+    const { isCorrect } = this.props;
     if (isCorrect) {
       this.setState({ className: 'correct-answer' });
     } else {
@@ -90,7 +88,9 @@ Answer.propTypes = {
   index: PropTypes.number.isRequired,
   isCorrect: PropTypes.bool.isRequired,
   checkQuestionProp: PropTypes.func.isRequired,
+  disableAnswerProp: PropTypes.func.isRequired,
   checkAnswer: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
   timerGlobal: PropTypes.number.isRequired,
 };
 

@@ -3,7 +3,12 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Question from '../components/Question';
 import GameHeader from '../components/GameHeader';
-import { getQuestionsAct, getTokenAct, saveToken, startAnswerAct } from '../redux/actions';
+import {
+  getQuestionsAct,
+  getTokenAct,
+  saveToken,
+  startAnswerAct,
+} from '../redux/actions';
 
 class Game extends Component {
   constructor() {
@@ -21,24 +26,24 @@ class Game extends Component {
     const { startAnswerActProp } = this.props;
     startAnswerActProp();
   };
-  
+
   shuffle = (array) => {
     let currentIndex = array.length;
     let temporaryValue;
     let randomIndex;
-    
+
     while (currentIndex !== 0) {
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
-      
+
       temporaryValue = array[currentIndex];
       array[currentIndex] = array[randomIndex];
       array[randomIndex] = temporaryValue;
     }
-    
+
     return array;
   };
-  
+
   randomAnswers = (quest) => {
     const {
       category,
@@ -80,7 +85,11 @@ class Game extends Component {
           <p>Loading</p>
         )}
         {nextQuestion && (
-          <button type="button" onClick={ () => this.nextQuestion(numberQuest) } data-testid="btn-next">
+          <button
+            type="button"
+            onClick={ () => this.nextQuestion(numberQuest) }
+            data-testid="btn-next"
+          >
             Next
           </button>
         )}
