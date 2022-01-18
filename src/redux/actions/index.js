@@ -7,7 +7,9 @@ export const CHECK_ANSWER = 'CHECK_ANSWER';
 export const SAVE_QUESTION = 'SAVE_QUESTION';
 export const SAVE_TOKEN = 'SAVE_TOKEN';
 export const ERROR_TOKEN = 'ERROR_TOKEN';
+export const SET_TIMER = 'SET_TIMER';
 
+export const setTimerAct = (payload) => ({ type: SET_TIMER, payload });
 export const addPlayer = (payload) => ({ type: ADD_PLAYER, payload });
 
 export const checkAnswerAct = () => ({ type: CHECK_ANSWER });

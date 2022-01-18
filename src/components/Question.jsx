@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Answer from './Answer';
 import { getQuestionsAct } from '../redux/actions';
+import Timer from './Timer';
 
 class Question extends Component {
   constructor() {
@@ -80,6 +81,9 @@ class Question extends Component {
               answer={ answer }
             />
           ))}
+        </div>
+        <div>
+          <Timer />
         </div>
       </div>
     );
