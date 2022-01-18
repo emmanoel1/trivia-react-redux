@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { checkAnswerAct } from '../redux/actions';
+import { checkAnswerAct, disableAnswerAct } from '../redux/actions';
 
 class Answer extends Component {
   constructor() {
@@ -17,18 +17,27 @@ class Answer extends Component {
   componentDidMount() {
     const TEN = 10;
     setInterval(() => {
-      const { checkAnswer, timerGlobal } = this.props;
-      if (timerGlobal === 0) this.setState({ disabled: true });
-      if (checkAnswer) this.checkQuestion();
+      const { checkAnswer, timerGlobal, disableAnswerProp } = this.props;
+      if (timerGlobal === 0) disableAnswerProp();
+      if (checkAnswer) {
+        this.checkQuestion(); 
+      } else this.clearState();
     }, TEN);
     const { index } = this.props;
     this.checkQuestionBefore(index);
   }
 
-  checkQuestion = () => {
-    const { isCorrect } = this.props;
-    this.setState({ disabled: true });
+  clearState = () => {
+        this.setState({
+      className: '',
+      dataTest: '',
+      disabled: false,
+    });
+  }
 
+  checkQuestion = () => {
+    const { isCorrect, disableAnswerProp } = this.props;
+    disableAnswerProp()
     if (isCorrect) {
       this.setState({ className: 'correct-answer' });
     } else {
@@ -60,8 +69,8 @@ class Answer extends Component {
 
   render() {
     //
-    const { answer } = this.props;
-    const { className, dataTest, disabled } = this.state;
+    const { answer, disabled } = this.props;
+    const { className, dataTest } = this.state;
     return (
       <button
         data-testid={ dataTest }
@@ -89,10 +98,12 @@ Answer.propTypes = {
 const mapStateToProps = (state) => ({
   checkAnswer: state.gameReducer.checking,
   timerGlobal: state.gameReducer.timerGlobal,
+  disabled: state.gameReducer.disabled,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   checkQuestionProp: () => dispatch(checkAnswerAct()),
+  disableAnswerProp: () => dispatch(disableAnswerAct()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Answer);
