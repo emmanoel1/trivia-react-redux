@@ -1,47 +1,64 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import get from '../service/get';
-import getToken from '../service/getToken';
+import { connect } from 'react-redux';
+import { addPlayer, getTokenAct } from '../redux/actions';
 
 class StartBtn extends React.Component {
   constructor() {
     super();
-
-    this.state = {
-
-    };
+    this.state = {};
 
     this.handlePlayBtn = this.handlePlayBtn.bind(this);
   }
 
-  async handlePlayBtn() {
-    const { history } = this.props;
-    const token = await getToken();
-    console.log(token);
-    // const game = await get(token.token);
-    // console.log(game);
-    localStorage.setItem('token', JSON.stringify(token));
-    history.push('/game');
+  handlePlayBtn() {
+    const { userDispatch, nameUser, emailUser, saveTokenLocal, history } = this.props;
+
+    userDispatch({ name: nameUser, gravatarEmail: emailUser });
+
+    saveTokenLocal(history.push('/game'));
   }
 
   render() {
+    const { isDisabled } = this.props;
     return (
-
+      // <Link to="/game">
       <button
-        data-testid="btn-play"
-        type="button"
+        className={
+          isDisabled
+            ? `shadow bg-purple-300 cursor-not-allowed hover:bg-purple-400
+              focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4
+              rounded`
+            : `shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline
+              focus:outline-none text-white font-bold py-2 px-4 rounded`
+        }
         onClick={ () => this.handlePlayBtn() }
+        type="button"
+        data-testid="btn-play"
+        disabled={ isDisabled }
       >
-        Play
+        PLAY
       </button>
+      // </Link>
     );
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  setDispatch: (token) => dispatch(getTokenAct(token)),
+  saveTokenLocal: (callback) => dispatch(getTokenAct(callback)),
+  userDispatch: (val) => dispatch(addPlayer(val)),
+});
+
 StartBtn.propTypes = {
+  isDisabled: PropTypes.bool.isRequired,
+  saveTokenLocal: PropTypes.func.isRequired,
+  userDispatch: PropTypes.func.isRequired,
+  nameUser: PropTypes.string.isRequired,
+  emailUser: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default StartBtn;
+export default connect(null, mapDispatchToProps)(StartBtn);

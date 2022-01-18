@@ -11,3 +11,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button {
+  padding: 10px;
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+
+.correct-answer {
+  border: 3px solid rgb(6, 240, 15);
+  border-color: ;
+}
+
+.wrong-answer {
+  border: 3px solid rgb(255, 0, 0);
+}

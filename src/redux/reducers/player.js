@@ -11,8 +11,7 @@ const playerReducer = (state = INITIAL_STATE, action) => {
   case ADD_PLAYER:
     return {
       ...state,
-      name: action.payload,
-      gravatarEmail: action.payload,
+      ...action.payload,
     };
   default:
     return state;
