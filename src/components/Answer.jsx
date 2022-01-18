@@ -17,8 +17,9 @@ class Answer extends Component {
   componentDidMount() {
     const TEN = 10;
     setInterval(() => {
-      const { checkAnswer } = this.props;
-      if (checkAnswer) return this.checkQuestion();
+      const { checkAnswer, timerGlobal } = this.props;
+      if (timerGlobal === 0) this.setState({ disabled: true });
+      if (checkAnswer) this.checkQuestion();
     }, TEN);
     const { index } = this.props;
     this.checkQuestionBefore(index);
@@ -86,6 +87,8 @@ Answer.propTypes = {
 
 const mapStateToProps = (state) => ({
   checkAnswer: state.gameReducer.checking,
+  timerGlobal: state.gameReducer.timerGlobal,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
