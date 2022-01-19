@@ -16,9 +16,10 @@ class Question extends Component {
       hard: 3,
     };
     const TOTAL = isCorrect
-      ? correctPoints + (timerGlobal * sumScore[question.difficulty]) : 0;
+      ? correctPoints + timerGlobal * sumScore[question.difficulty]
+      : 0;
     saveRankProp(TOTAL);
-  }
+  };
 
   render() {
     const {
@@ -62,6 +63,9 @@ Question.propTypes = {
   }).isRequired,
   timerGlobal: PropTypes.number.isRequired,
   saveRankProp: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({

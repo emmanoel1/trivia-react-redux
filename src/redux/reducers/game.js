@@ -18,7 +18,7 @@ const initialState = {
   startCounter: true,
 };
 
-const gameReducer = (state = initialState, { type, question, payload }) => {
+const gameReducer = (state = initialState, { type, question }) => {
   const cases = {
     [CHECK_ANSWER]: { ...state, checking: true, nextQuestion: true, startCounter: false },
     [DISABLE_ANSWER]: { ...state, disableAnswer: true },

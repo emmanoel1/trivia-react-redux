@@ -19,12 +19,12 @@ class Game extends Component {
   }
 
   nextQuestion = (nq) => {
-    const {history} = this.props
+    const { history } = this.props;
     const NUMBER_QUESTION = 4;
     if (nq < NUMBER_QUESTION) {
       this.setState((state) => ({ numberQuest: state.numberQuest + 1 }));
     } else {
-      history.push('/feedback')
+      history.push('/feedback');
     }
     const { startAnswerActProp } = this.props;
     startAnswerActProp();
@@ -106,6 +106,9 @@ Game.propTypes = {
   errorToken: PropTypes.number.isRequired,
   nextQuestion: PropTypes.bool.isRequired,
   startAnswerActProp: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
