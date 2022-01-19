@@ -53,6 +53,7 @@ nextQuestion = (nq) => {
   };
 
   randomAnswers = (quest) => {
+    if (quest === undefined) return {};
     const {
       category,
       type,

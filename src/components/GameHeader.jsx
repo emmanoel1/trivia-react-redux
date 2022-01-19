@@ -29,7 +29,6 @@ class GameHeader extends Component {
   render() {
     const { imgUrl } = this.state;
     const { name, score } = this.props;
-    console.log(score);
     return (
       <header>
         <img data-testid="header-profile-picture" src={ imgUrl } alt="Player Profile" />

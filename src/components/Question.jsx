@@ -32,7 +32,8 @@ class Question extends Component {
         <div data-testid="question-category">{category}</div>
         <div data-testid="question-text">{question}</div>
         <div className="flex flex-col" data-testid="answer-options">
-          {shuffleAnswers.map((answer, index) => (
+
+          {shuffleAnswers ? shuffleAnswers.map((answer, index) => (
             <Answer
               key={ index }
               index={ index }
@@ -41,7 +42,7 @@ class Question extends Component {
               answer={ answer }
               checkScore={ this.checkScore }
             />
-          ))}
+          )) : <p>Loading</p>}
         </div>
         <div>
           <Timer />

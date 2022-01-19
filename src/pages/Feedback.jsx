@@ -13,7 +13,6 @@ class Feedback extends Component {
   feedbackGenerator() {
     const threeCorrect = 3;
     const { props: { assertions } } = this;
-    console.log('ACERTOS', assertions);
     return assertions >= threeCorrect ? 'Well Done!' : 'Could be better...';
   }
 

@@ -11,7 +11,6 @@ export const orderScore = (array) => {
 };
 
 export const createRanking = (userName, userPicture, userScore) => {
-  console.log(userName, userPicture, userScore);
   const player = {
     name: userName,
     score: userScore,
@@ -19,13 +18,11 @@ export const createRanking = (userName, userPicture, userScore) => {
   };
 
   const PlayersStorage = getItemLocalStore('ranking');
-  console.log(PlayersStorage);
   if (PlayersStorage === null) {
     const allPlayers = player;
     setItemLocalStore('ranking', [allPlayers]);
     return allPlayers;
   }
-  console.log();
   const allPlayers = [player, ...PlayersStorage];
   setItemLocalStore('ranking', orderScore(allPlayers));
 };
