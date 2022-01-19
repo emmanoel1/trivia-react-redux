@@ -14,13 +14,17 @@ class Timer extends Component {
   componentDidMount() {
     const { setTimer } = this.props;
     const ONE_SECOND = 1000;
-    const THIRTY_SECOND = 32000;
-    const teste = setInterval(() => {
+    const THIRTY_SECOND = 31000;
+    const timerDegree = setInterval(() => {
       this.stopwatch();
       const { timer } = this.state;
       setTimer(timer);
     }, ONE_SECOND);
-    setTimeout(() => clearTimeout(teste), THIRTY_SECOND);
+    /*  setInterval(() => {
+      const { startCounter } = this.state;
+      if (!startCounter) clearTimeout(timerDegree);
+    }, 500); */
+    setTimeout(() => clearTimeout(timerDegree), THIRTY_SECOND);
   }
 
   stopwatch = () => this.setState((state) => ({ timer: state.timer - 1 }));
@@ -38,6 +42,7 @@ Timer.propTypes = {
 
 const mapStateToProps = (state) => ({
   timerGlobal: state.gameReducer.timerGlobal,
+  startCounter: state.gameReducer.startCounter,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -45,35 +50,3 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Timer);
-
-/*
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-
-class Timer extends Component {
-  constructor() {
-    super();
-    this.state = {
-      timer: 30,
-    };
-  }
-
-  componentDidMount() {
-    const ONE_SECOND = 1000;
-    const THIRTY_SECOND = 31000;
-    const teste = setInterval(() => this.stopwatch(), ONE_SECOND);
-    setTimeout(() => clearTimeout(teste), THIRTY_SECOND);
-  }
-
-  stopwatch = () => this.setState((state) => ({ timer: state.timer - 1 }));
-
-  render() {
-    const { timer } = this.state;
-    return <div>{timer}</div>;
-  }
-}
-
-Timer.propTypes = {};
-
-export default Timer;
- */

@@ -8,9 +8,13 @@ export const SAVE_QUESTION = 'SAVE_QUESTION';
 export const SAVE_TOKEN = 'SAVE_TOKEN';
 export const ERROR_TOKEN = 'ERROR_TOKEN';
 export const SET_TIMER = 'SET_TIMER';
+export const START_ANSWER = 'START_ANSWER';
+export const DISABLE_ANSWER = 'DISABLE_ANSWER';
 export const SAVE_GRAVATAR = 'SAVE_GRAVATAR';
 export const SAVE_RANK = 'SAVE_RANK';
 
+export const disableAnswerAct = () => ({ type: DISABLE_ANSWER });
+export const startAnswerAct = () => ({ type: START_ANSWER });
 export const setTimerAct = (payload) => ({ type: SET_TIMER, payload });
 export const addPlayer = (payload) => ({ type: ADD_PLAYER, payload });
 export const saveRank = (payload) => ({ type: SAVE_RANK, payload });
