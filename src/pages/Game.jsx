@@ -19,9 +19,12 @@ class Game extends Component {
   }
 
   nextQuestion = (nq) => {
+    const {history} = this.props
     const NUMBER_QUESTION = 4;
     if (nq < NUMBER_QUESTION) {
       this.setState((state) => ({ numberQuest: state.numberQuest + 1 }));
+    } else {
+      history.push('/feedback')
     }
     const { startAnswerActProp } = this.props;
     startAnswerActProp();

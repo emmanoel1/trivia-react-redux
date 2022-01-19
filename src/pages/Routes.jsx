@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router';
+import Feedback from './Feedback';
 import Game from './Game';
 
 import HomeTemp from './HomeTemp';
@@ -11,6 +12,7 @@ class Routes extends Component {
       <Switch>
         <Route exact path="/settings" component={ Settings } />
         <Route exact path="/game" component={ Game } />
+        <Route exact path="/feedback" component={ Feedback } />
         <Route exact path="/" component={ HomeTemp } />
       </Switch>
     );

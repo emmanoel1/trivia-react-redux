@@ -2,10 +2,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Answer from './Answer';
-import { getQuestionsAct } from '../redux/actions';
+import { getQuestionsAct, saveRank } from '../redux/actions';
 import Timer from './Timer';
 
 class Question extends Component {
+  checkScore = (isCorrect) => {
+    // 10 + (timer * dificuldade)
+    const { question, timerGlobal, saveRankProp } = this.props;
+    const correctPoints = 10;
+    const sumScore = {
+      easy: 1,
+      medium: 2,
+      hard: 3,
+    };
+    const TOTAL = isCorrect
+      ? correctPoints + (timerGlobal * sumScore[question.difficulty]) : 0;
+    saveRankProp(TOTAL);
+  }
+
   render() {
     const {
       props: {
@@ -24,6 +38,7 @@ class Question extends Component {
               dataTest="correct-answer"
               isCorrect={ answer === correctAnswer }
               answer={ answer }
+              checkScore={ this.checkScore }
             />
           ))}
         </div>
@@ -45,14 +60,17 @@ Question.propTypes = {
     shuffleAnswers: PropTypes.arrayOf(PropTypes.string).isRequired,
     correctAnswer: PropTypes.string.isRequired,
   }).isRequired,
+  timerGlobal: PropTypes.number.isRequired,
+  saveRankProp: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = () => ({
-  com: 'test',
+const mapStateToProps = (state) => ({
+  timerGlobal: state.gameReducer.timerGlobal,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   getQuestionsProp: () => dispatch(getQuestionsAct()),
+  saveRankProp: (points) => dispatch(saveRank(points)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Question);
