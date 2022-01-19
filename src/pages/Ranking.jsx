@@ -15,9 +15,10 @@ class Ranking extends Component {
   }
  */
   orderScore(array) {
+    const NEGATIVE_ONE = -1;
     return array.sort((a, b) => {
       if (a.score < b.score) return 1;
-      if (a.score > b.score) return -1;
+      if (a.score > b.score) return NEGATIVE_ONE;
       return 0;
     });
   }
@@ -52,6 +53,7 @@ class Ranking extends Component {
     const { history } = this.props;
     return (
       <div>
+        <h data-testid="ranking-title">Ranking</h>
         {this.createRanking().map((user, index) => (
           <div key={ index }>
             <div data-testid="">
