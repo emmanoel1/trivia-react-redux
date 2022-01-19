@@ -30,7 +30,7 @@ const gameReducer = (state = initialState, { type, question, payload }) => {
       timerGlobal: 30,
     },
     [SAVE_QUESTION]: { ...state, question },
-    [SET_TIMER]: { ...state, timerGlobal: payload },
+    [SET_TIMER]: { ...state, timerGlobal: state.timerGlobal - 1 },
     [ERROR_TOKEN]: { ...state, error: 'token não encontrado' },
   };
   if (cases[type]) return cases[type];
