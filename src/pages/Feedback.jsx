@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import GameHeader from '../components/GameHeader';
+import ButtonGameAgain from '../components/ButtonGameAgain';
 
 class Feedback extends Component {
   constructor() {
@@ -12,6 +13,7 @@ class Feedback extends Component {
   feedbackGenerator() {
     const threeCorrect = 3;
     const { props: { assertions } } = this;
+    console.log('ACERTOS', assertions);
     return assertions >= threeCorrect ? 'Well Done!' : 'Could be better...';
   }
 
@@ -32,14 +34,10 @@ class Feedback extends Component {
           Score:
           <span data-testid="feedback-total-score">{score}</span>
         </p>
-
-        <button
-          type="button"
-          data-testid="btn-play-again"
-          onClick={ () => history.push('/') }
-        >
-          Play Again
-        </button>
+        <ButtonGameAgain
+          history={ history }
+          dataTestid="btn-play-again"
+        />
 
         <button
           type="button"

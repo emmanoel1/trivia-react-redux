@@ -9,6 +9,7 @@ import {
   saveToken,
   startAnswerAct,
 } from '../redux/actions';
+import { createRanking } from '../helpers';
 
 class Game extends Component {
   constructor() {
@@ -18,17 +19,21 @@ class Game extends Component {
     };
   }
 
-  nextQuestion = (nq) => {
-    const { history } = this.props;
-    const NUMBER_QUESTION = 4;
-    if (nq < NUMBER_QUESTION) {
-      this.setState((state) => ({ numberQuest: state.numberQuest + 1 }));
-    } else {
-      history.push('/feedback');
-    }
-    const { startAnswerActProp } = this.props;
-    startAnswerActProp();
-  };
+nextQuestion = (nq) => {
+  const { history } = this.props;
+  const NUMBER_QUESTION = 4;
+  if (nq < NUMBER_QUESTION) {
+    this.setState((state) => ({ numberQuest: state.numberQuest + 1 }));
+  } else {
+    const { userName, userPicture, userScore } = this.props;
+
+    createRanking(userName, userPicture, userScore);
+    history.push('/feedback');
+  }
+
+  const { startAnswerActProp } = this.props;
+  startAnswerActProp();
+};
 
   shuffle = (array) => {
     let currentIndex = array.length;
@@ -109,6 +114,9 @@ Game.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  userName: PropTypes.string.isRequired,
+  userPicture: PropTypes.string.isRequired,
+  userScore: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -116,6 +124,10 @@ const mapStateToProps = (state) => ({
   errorToken: state.gameReducer.errorToken,
   nextQuestion: state.gameReducer.nextQuestion,
   token: state.token,
+  userName: state.player.name,
+  userPicture: state.player.gravatarImg,
+  userScore: state.player.score,
+
 });
 
 const mapDispatchToProps = (dispatch) => ({
