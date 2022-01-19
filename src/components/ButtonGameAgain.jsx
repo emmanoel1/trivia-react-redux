@@ -6,7 +6,11 @@ class ButtonGameAgain extends Component {
     const { history } = this.props;
     return (
       <div>
-        <button type="button" data-testid="btn-go-home" onClick={ () => history.push('/') }>
+        <button
+          type="button"
+          data-testid="btn-go-home"
+          onClick={ () => history.push('/') }
+        >
           Jogar Novamente
         </button>
       </div>
