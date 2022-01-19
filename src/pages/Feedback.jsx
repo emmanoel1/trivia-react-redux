@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import GameHeader from '../components/GameHeader';
 
@@ -18,7 +17,7 @@ class Feedback extends Component {
 
   render() {
     const {
-      props: { assertions, score },
+      props: { assertions, score, history },
       feedbackGenerator,
     } = this;
     return (
@@ -33,19 +32,23 @@ class Feedback extends Component {
           Score:
           <span data-testid="feedback-total-score">{score}</span>
         </p>
-        <Link to="/">
-          <button
-            type="button"
-            data-testid="btn-play-again"
-          >
-            Play Again
-          </button>
-        </Link>
-        <Link to="/ranking">
-          <button type="button" data-testid="btn-ranking">
-            Ranking
-          </button>
-        </Link>
+
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ () => history.push('/') }
+        >
+          Play Again
+        </button>
+
+        <button
+          type="button"
+          data-testid="btn-ranking"
+          onClick={ () => history.push('/ranking') }
+        >
+          Ranking
+        </button>
+
       </div>
     );
   }
@@ -54,6 +57,9 @@ class Feedback extends Component {
 Feedback.propTypes = {
   score: PropTypes.number.isRequired,
   assertions: PropTypes.number.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
