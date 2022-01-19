@@ -22,7 +22,7 @@ const FEEDBACK_TEXT_SELECTOR = '[data-testid="feedback-text"]';
 const PLAYER_NAME = 'Nome da pessoa';
 const PLAYER_EMAIL = 'email@pessoa.com';
 
-describe.skip('4 - [TELA DE JOGO] Crie um _header_ que deve conter as informações da pessoa jogadora', () => {
+describe('4 - [TELA DE JOGO] Crie um _header_ que deve conter as informações da pessoa jogadora', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/', {
       onBeforeLoad(win) {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { checkAnswerAct } from '../redux/actions';
+import { checkAnswerAct, disableAnswerAct } from '../redux/actions';
 
 class Answer extends Component {
   constructor() {
@@ -10,23 +10,30 @@ class Answer extends Component {
     this.state = {
       className: '',
       dataTest: '',
-      disabled: false,
     };
   }
 
   componentDidMount() {
     const TEN = 10;
     setInterval(() => {
-      const { checkAnswer } = this.props;
-      if (checkAnswer) return this.checkQuestion();
+      const { checkAnswer, timerGlobal, disableAnswerProp } = this.props;
+      if (timerGlobal <= 0) disableAnswerProp();
+      if (checkAnswer) {
+        this.checkQuestion();
+      } else this.clearState();
+      const { index } = this.props;
+      this.checkQuestionBefore(index);
     }, TEN);
-    const { index } = this.props;
-    this.checkQuestionBefore(index);
   }
 
-  checkQuestion = () => {
-    this.setState({ disabled: true });
+  clearState = () => {
+    this.setState({
+      className: '',
+      dataTest: '',
+    });
+  };
 
+  checkQuestion = () => {
     const { isCorrect } = this.props;
     if (isCorrect) {
       this.setState({ className: 'correct-answer' });
@@ -52,22 +59,23 @@ class Answer extends Component {
     }
   };
 
-  onClickAnswer = () => {
-    const { checkQuestionProp } = this.props;
+  onClickAnswer = (isCorrect) => {
+    const { checkQuestionProp, checkScore } = this.props;
     checkQuestionProp();
+    checkScore(isCorrect);
   };
 
   render() {
     //
-    const { answer } = this.props;
-    const { className, dataTest, disabled } = this.state;
+    const { answer, disabled, isCorrect } = this.props;
+    const { className, dataTest } = this.state;
     return (
       <button
         data-testid={ dataTest }
         type="button"
         className={ `${className} bg-zinc-300 border
         border-zinc-400 p-6 w-full mb-5 hover:bg-sky-700` }
-        onClick={ () => this.onClickAnswer() }
+        onClick={ () => this.onClickAnswer(isCorrect) }
         disabled={ disabled }
       >
         {answer}
@@ -81,15 +89,22 @@ Answer.propTypes = {
   index: PropTypes.number.isRequired,
   isCorrect: PropTypes.bool.isRequired,
   checkQuestionProp: PropTypes.func.isRequired,
+  disableAnswerProp: PropTypes.func.isRequired,
   checkAnswer: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  timerGlobal: PropTypes.number.isRequired,
+  checkScore: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   checkAnswer: state.gameReducer.checking,
+  timerGlobal: state.gameReducer.timerGlobal,
+  disabled: state.gameReducer.disableAnswer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   checkQuestionProp: () => dispatch(checkAnswerAct()),
+  disableAnswerProp: () => dispatch(disableAnswerAct()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Answer);
