@@ -53,6 +53,7 @@ class Ranking extends Component {
     const { history } = this.props;
     return (
       <div>
+        <h data-testid="ranking-title">Ranking</h>
         {this.createRanking().map((user, index) => (
           <div key={ index }>
             <div data-testid="">

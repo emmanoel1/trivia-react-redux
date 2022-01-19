@@ -1,31 +1,70 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import GameHeader from '../components/GameHeader';
 
 class Feedback extends Component {
+  constructor() {
+    super();
+    this.feedbackGenerator = this.feedbackGenerator.bind(this);
+  }
+
+  feedbackGenerator() {
+    const threeCorrect = 3;
+    const { props: { assertions } } = this;
+    return assertions >= threeCorrect ? 'Well Done!' : 'Could be better...';
+  }
+
   render() {
-    const { history } = this.props;
+    const {
+      props: { assertions, score, history },
+      feedbackGenerator,
+    } = this;
     return (
       <div>
-        <h1 data-testid="feedback-text">_feedback_</h1>
+        <GameHeader />
+        <h2 data-testid="feedback-text">{ feedbackGenerator() }</h2>
+        <p>
+          Correct Answers:
+          <span data-testid="feedback-total-question">{ assertions }</span>
+        </p>
+        <p>
+          Score:
+          <span data-testid="feedback-total-score">{score}</span>
+        </p>
+
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ () => history.push('/') }
+        >
+          Play Again
+        </button>
+
         <button
           type="button"
           data-testid="btn-ranking"
           onClick={ () => history.push('/ranking') }
         >
-          ranking
+          Ranking
         </button>
-        <button type="button" data-testid="" onClick={ () => history.push('/') }>
-          Jogar
-        </button>
+
       </div>
     );
   }
 }
 
 Feedback.propTypes = {
+  score: PropTypes.number.isRequired,
+  assertions: PropTypes.number.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
 };
 
-export default Feedback;
+const mapStateToProps = (state) => ({
+  score: state.player.score,
+  assertions: state.player.assertions,
+});
+
+export default connect(mapStateToProps)(Feedback);
